@@ -2,15 +2,15 @@ package edu.anand.logging;
 
 import java.util.function.Supplier;
 
-public class Logger {
+public class StandardLogger {
 
   private final org.slf4j.Logger LOGGER;
 
-  public static Logger getLogger(String name) {
-    return new Logger(name);
+  public static StandardLogger getLogger(String name) {
+    return new StandardLogger(name);
   }
 
-  protected Logger(String name) {
+  protected StandardLogger(String name) {
     LOGGER = org.slf4j.LoggerFactory.getLogger(name);
   }
 
