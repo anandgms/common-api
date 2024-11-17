@@ -2,7 +2,7 @@ package edu.anand.logging;
 
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public class AuditLogger {
 
@@ -16,19 +16,19 @@ public class AuditLogger {
     LOGGER = org.slf4j.LoggerFactory.getLogger(name);
   }
 
-  public <T extends User> void audit(T user, Supplier<String> message) {
+  public <T extends UserDetails> void audit(T user, Supplier<String> message) {
     if (LOGGER.isInfoEnabled() && message != null) {
       LOGGER.info(message.get() + getUsernameAndRoles(user));
     }
   }
 
-  public <T extends User> void audit(T user, Supplier<String> message, Object... objects) {
+  public <T extends UserDetails> void audit(T user, Supplier<String> message, Object... objects) {
     if (LOGGER.isInfoEnabled() && message != null) {
       LOGGER.info(message.get() + getUsernameAndRoles(user), objects);
     }
   }
 
-  private String getUsernameAndRoles(User user) {
+  private String getUsernameAndRoles(UserDetails user) {
     if (user == null) return "Anonymous User";
 
     String username = user.getUsername();
