@@ -1,17 +1,19 @@
 package edu.anand.logging;
 
 import java.util.function.Supplier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class StandardLogger {
 
-  private final org.slf4j.Logger LOGGER;
+  private final Logger LOGGER;
 
   public static StandardLogger getLogger(String name) {
     return new StandardLogger(name);
   }
 
   protected StandardLogger(String name) {
-    LOGGER = org.slf4j.LoggerFactory.getLogger(name);
+    LOGGER = LoggerFactory.getLogger(name);
   }
 
   public void trace(Supplier<String> message) {
