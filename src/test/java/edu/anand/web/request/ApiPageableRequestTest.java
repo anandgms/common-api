@@ -1,4 +1,4 @@
-package edu.anand.vo;
+package edu.anand.web.request;
 
 import static org.junit.jupiter.api.Assertions.*;
 

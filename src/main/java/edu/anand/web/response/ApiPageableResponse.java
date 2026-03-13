@@ -1,4 +1,4 @@
-package edu.anand.vo;
+package edu.anand.web.response;
 
 import java.util.List;
 

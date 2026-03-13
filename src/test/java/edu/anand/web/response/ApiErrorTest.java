@@ -1,6 +1,6 @@
-package edu.anand.vo;
+package edu.anand.web.response;
 
-import static edu.anand.vo.ApiError.Severity.*;
+import static edu.anand.web.response.ApiError.Severity.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;

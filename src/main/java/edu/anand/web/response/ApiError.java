@@ -1,4 +1,4 @@
-package edu.anand.vo;
+package edu.anand.web.response;
 
 public record ApiError(int code, String message, Severity severity, Throwable cause) {
 

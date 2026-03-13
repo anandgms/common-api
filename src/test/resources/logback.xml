@@ -1,0 +1,22 @@
+<configuration>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- The %X{userId} part pulls the value from the MDC with key "userId" -->
+            <pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [%X{traceId}] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="audit" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- <encoder class="net.logstash.logback.encoder.LogstashEncoder"> -->
+         <encoder>
+            <includeMdc>true</includeMdc>
+            <!-- The %X{userId} part pulls the value from the MDC with key "userId" -->
+            <pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [%X{traceId}] - %msg - User:[%X{userId}] with roles:[%X{roles}]%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="audit" />
+    </root>
+</configuration>
