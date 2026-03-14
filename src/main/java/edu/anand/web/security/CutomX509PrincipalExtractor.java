@@ -1,6 +1,8 @@
 package edu.anand.web.security;
 
 import jakarta.servlet.http.HttpServletRequest;
+
+import java.nio.charset.StandardCharsets;
 import java.security.cert.X509Certificate;
 import java.util.*;
 import javax.naming.ldap.LdapName;
@@ -95,7 +97,8 @@ public class CutomX509PrincipalExtractor implements X509PrincipalExtractor {
         Object value = entry.get(1);
 
         switch (type) {
-          case RFC822_NAME, DNS, URI -> value.toString();
+          case RFC822_NAME, DNS, URI, UPN, DN, X400, EDI, OID -> value.toString();
+          case IP_ADDRESS -> new String((byte[]) value, StandardCharsets.UTF_8);
         }
       }
 
