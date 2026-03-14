@@ -3,19 +3,17 @@ package edu.anand.logging;
 import java.util.function.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.MDC;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 
-/**
- * Default SL4J implentation of AppLogger. 
- * Works with both logback and log4j2.
- */
+/** Default SL4J implentation of AppLogger. Works with both logback and log4j2. */
 public class Slf4jAppLogger implements AppLogger {
 
   private final Logger logger;
-  private final Logger auditLogger;
+  private static final Marker AUDIT_MARKER = MarkerFactory.getMarker("AUDIT");
 
-  public Slf4jAppLogger(Logger logger, Logger auditLogger) {
+  public Slf4jAppLogger(Logger logger) {
     this.logger = logger;
-    this.auditLogger = auditLogger;
   }
 
   @Override
@@ -98,14 +96,14 @@ public class Slf4jAppLogger implements AppLogger {
   @Override
   public void audit(Supplier<String> message) {
     if (message != null) {
-      auditLogger.info(message.get());
+      logger.info(AUDIT_MARKER, message.get());
     }
   }
 
   @Override
   public void audit(Supplier<String> message, Object... args) {
     if (message != null) {
-      auditLogger.info(message.get(), args);
+      logger.info(AUDIT_MARKER, message.get(), args);
     }
   }
 

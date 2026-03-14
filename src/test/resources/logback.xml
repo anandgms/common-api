@@ -7,16 +7,23 @@
     </appender>
 
     <appender name="audit" class="ch.qos.logback.core.ConsoleAppender">
-        <!-- <encoder class="net.logstash.logback.encoder.LogstashEncoder"> -->
-         <encoder>
+        <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+            <marker>AUDIT</marker>
+        </evaluator>
+        <encoder>
             <includeMdc>true</includeMdc>
             <!-- The %X{userId} part pulls the value from the MDC with key "userId" -->
-            <pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [%X{traceId}] - %msg - User:[%X{userId}] with roles:[%X{roles}]%n</pattern>
+            <pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} [%marker] %-5level %logger{36} - [%X{traceId}] - %msg - User:[%X{userId}] with roles:[%X{roles}]%n</pattern>
         </encoder>
     </appender>
 
-    <root level="DEBUG">
+    <root level="WARN">
         <appender-ref ref="CONSOLE" />
-        <appender-ref ref="audit" />
     </root>
+
+    <logger name="edu.anand" level="INFO" additivity="false">
+        <appender-ref ref="audit" />
+        <appender-ref ref="CONSOLE" />
+    </logger>
+
 </configuration>

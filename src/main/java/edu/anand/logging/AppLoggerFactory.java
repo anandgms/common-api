@@ -9,10 +9,7 @@ import org.springframework.stereotype.Component;
 public class AppLoggerFactory {
 
   public AppLogger getLogger(Class<?> clazz) {
-
     Logger logger = LoggerFactory.getLogger(clazz);
-    Logger auditLogger = LoggerFactory.getLogger("audit");
-
-    return new Slf4jAppLogger(logger, auditLogger);
+    return new Slf4jAppLogger(logger);
   }
 }

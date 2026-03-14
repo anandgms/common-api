@@ -1,13 +1,26 @@
 package edu.anand.logging;
 
-import org.junit.jupiter.api.Test;
+import java.util.UUID;
 
-// import org.springframework.security.core.authority.SimpleGrantedAuthority;
-// import org.springframework.security.core.userdetails.User;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 class AppLoggerTest {
 
   private final AppLogger logger = new AppLoggerFactory().getLogger(AppLoggerTest.class);
+
+  @BeforeAll
+  static void setup(){
+    LogContext.put("traceId", UUID.randomUUID().toString());
+    LogContext.put("userId", "currentUser");
+    LogContext.put("roles", "po, scrum_master, developer");
+  }
+
+  @AfterAll
+  static void cleanup(){
+    LogContext.clear();
+  }
 
   @Test
   void getLogger() {
@@ -47,39 +60,13 @@ class AppLoggerTest {
     logger.audit(() -> "Audit Message");
   }
 
-  // @Test
-  // void userRoles_NullNotAllowed() {
-  //   assertThrowsExactly(IllegalArgumentException.class, () -> new User("testUser", "", null));
-  // }
-
-  @Test
-  void userRolesIsEmpty() {
-    // User user = new User("testUser", "", Collections.emptyList());
-    logger.audit(() -> "Audit Message");
-  }
-
-  @Test
-  void multipleUserRoles() {
-    // User user =
-    //     new User(
-    //         "testUser",
-    //         "",
-    //         List.of(
-    //             new SimpleGrantedAuthority("ADMIN"),
-    //             new SimpleGrantedAuthority("USER"),
-    //             new SimpleGrantedAuthority("MANAGER")));
-    logger.audit(() -> "Audit Message");
-  }
-
   @Test
   void validUser() {
-    // User user = new User("testUser", "", List.of(new SimpleGrantedAuthority("ADMIN")));
     logger.audit(() -> "Audit Message");
   }
 
   @Test
   void validUser_VarArgs() {
-    // User user = new User("testUser", "", List.of(new SimpleGrantedAuthority("ADMIN")));
     logger.audit(() -> "Audit Message with variable {}", "var1");
   }
 }
